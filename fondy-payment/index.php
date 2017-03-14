@@ -26,26 +26,15 @@ class FondyPayment {
 
         if(URL::isSection('order')){
           if ( $_POST['payment'] ){
-            mgAddMeta('<script type="text/javascript">
-                $(document).ready( function(){
-                    var append_block = undefined;
-                    if( $("#fondy-payment-container").length > 0 ){
-                        append_block = $("#fondy-payment-container");
-                    } else {
-                        append_block = $(".main-block");
-                        $(".main-block").find("span").each( function(){
-                            text = $(this).html()
-                            text = text.replace("Ваш способ не предусматривает оплату электронными деньгами", "")
-                            text = text.replace("Вы должны оплатить заказ в соответствии с указанным способом оплаты!", "")
-                            $(this).html(text)
-                        })
-                    }
-                    $(append_block).append(`
-                        <p>
+            mgAddMeta('
+						<p style="display:none">
                         <input type="submit" id="fondy-submit" value="Оплатить" />
-                        </p>
-                    `);
-					
+                        </p>     
+			<script type="text/javascript">
+                $(document).ready( function(){
+					if($("input[name=phone]").val() == "" || $("input[name=email]").val() == ""){
+						return false;
+					}        					
                     $("#fondy-submit").click( function(){
                         $.ajax({
                             type: "POST",
