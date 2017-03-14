@@ -53,8 +53,8 @@ class Pactioner extends Actioner {
             }
         }
         $this->data["result"] = $o_id;  
-		print_r ($this->isPaymentValid($fondySettings,$_POST));	
-        if ($this->isPaymentValid($fondySettings,$_POST) == true){
+
+        if ($this->isPaymentValid($fondySettings,$_POST) == true and $_POST['order_status'] == 'approved'){
             $result_order = array();
             $dbRes = DB::query('
                 SELECT *
